@@ -18,12 +18,44 @@
 
         <div id="main-content" style="display:none;">
             
-            <div class="update-area">
-                <button id="updateBtn" onclick="handleUpdate()" class="update-button">
-                    <span id="btnIcon">🔄</span> <span id="btnText">อัปเดตแต้ม</span>
-                </button>
-                <p id="cooldownMsg"></p>
-            </div>
+            <div class="refresh-area">
+    <button id="updateBtn" onclick="handleUpdate()" class="refresh-button">
+        <span id="btnIcon">🔄</span> <span id="btnText">Refresh</span>
+    </button>
+    <p id="cooldownMsg"></p>
+</div>
+
+<style>
+    .refresh-area { 
+        text-align: center; 
+        margin-bottom: 15px; 
+    }
+    .refresh-button {
+        background-color: #ff4655;
+        color: white;
+        padding: 6px 14px;      /* ขนาดเล็กลงมาก */
+        font-size: 13px;        /* ตัวอักษรพอดีคำ */
+        border: none;
+        border-radius: 4px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.2s;
+        box-shadow: 0 2px 6px rgba(255, 70, 85, 0.3);
+    }
+    .refresh-button:hover { 
+        background-color: #cf3a46; 
+    }
+    .refresh-button:disabled { 
+        background-color: #444; 
+        cursor: not-allowed; 
+    }
+    #cooldownMsg { 
+        color: #888; 
+        font-size: 11px; 
+        margin-top: 4px; 
+        height: 12px; 
+    }
+</style>
 
             <div id="bingo-board" class="bingo-grid">
                 </div>
@@ -86,4 +118,5 @@
     <script src="script.js"></script>
 </body>
 </html>
+
 
