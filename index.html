@@ -31,6 +31,29 @@
         <button onclick="gen()">Generate Bingo</button>
     </div>
 
+    <div style="text-align: center; margin-bottom: 20px;">
+    <button id="updateBtn" onclick="handleUpdate()" class="update-button">
+        <span id="btnIcon">🔄</span> <span id="btnText">อัปเดตแต้ม</span>
+    </button>
+    <p id="cooldownMsg" style="color: #666; font-size: 12px; margin-top: 5px; height: 15px;"></p>
+</div>
+
+<style>
+    .update-button {
+        background-color: #ff4655;
+        color: white;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 4px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+        box-shadow: 0 4px 15px rgba(255, 70, 85, 0.3);
+    }
+    .update-button:hover { background-color: #cf3a46; transform: translateY(-2px); }
+    .update-button:disabled { background-color: #444; cursor: not-allowed; }
+</style>
+    
     <div id="board" class="grid"></div>
 
     <div class="watermark">
@@ -40,4 +63,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>
