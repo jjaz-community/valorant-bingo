@@ -1,7 +1,7 @@
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxP4oduAufLWfzP1Ytg88M3vJ_x4c0BCbs9asakJ7btzMJC8fgA_hOtExkD8zUiX3VW3Q/exec"; 
 let isCooldown = false;
 
-// 1. ฟังก์ชันสุ่มบิงโก (ทำงานในหน้าเดียว ไม่มีการซ่อนหน้า)
+// 1. ฟังก์ชันสุ่มบิงโก
 async function generateBingo() {
     const username = document.getElementById('username').value;
     if (!username) {
@@ -9,7 +9,6 @@ async function generateBingo() {
         return;
     }
 
-    // เปลี่ยนข้อความปุ่มระหว่างโหลดให้ดูโปรขึ้น
     const genBtn = document.querySelector('.btn-primary');
     const originalText = genBtn.innerText;
     genBtn.innerText = "Generating...";
@@ -20,36 +19,49 @@ async function generateBingo() {
         const board = await response.json();
         
         if (board && !board.error) {
-            renderBoard(board); // วาดตารางลงไปในหน้าเดิม
+            renderBoard(board);
             console.log("สร้างตารางสำเร็จสำหรับคุณ " + username);
         } else {
             alert("เกิดข้อผิดพลาด: " + (board.error || "ไม่สามารถดึงข้อมูลได้"));
         }
     } catch (err) {
         console.error(err);
-        alert("เชื่อมต่อกับ Google ไม่ได้ (Failed to fetch)");
+        alert("เชื่อมต่อกับ Google ไม่ได้");
     } finally {
         genBtn.innerText = originalText;
         genBtn.disabled = false;
     }
 }
 
-// 2. ฟังก์ชันวาดตารางลงหน้าเว็บ (ไม่เปลี่ยนแปลง)
+// 2. ฟังก์ชันวาดตาราง (JJAZ เด่นที่สุด)
 function renderBoard(board) {
     const container = document.getElementById('bingo-board');
     container.innerHTML = '';
+    
     board.forEach((text, index) => {
         const cell = document.createElement('div');
         cell.className = 'bingo-cell';
-        cell.id = 'cell-' + index;
         cell.innerText = text;
-        // ถ้าเป็นช่องกลาง (JJAZ) ให้มาร์คสีไว้เลย
-        if (text === "JJAZ") cell.classList.add('marked', 'center-cell');
+
+        if (text === "JJAZ") {
+            cell.id = "special-cell"; // สำหรับ CSS เรืองแสง
+            cell.classList.add('marked'); 
+        } else {
+            cell.id = 'cell-' + index;
+        }
+
+        cell.onclick = function() {
+            // ป้องกันไม่ให้กดติ๊กช่อง JJAZ ออก (หรือถ้าอยากให้กดออกได้ก็เอา if นี้ออกครับ)
+            if (this.id !== "special-cell") {
+                this.classList.toggle('marked');
+            }
+        };
+
         container.appendChild(cell);
     });
 }
 
-// 3. ฟังก์ชันปุ่ม Refresh (แบบมี Cooldown 5 วินาที)
+// 3. ฟังก์ชัน Refresh (ป้องกันการลบสีม่วงของ JJAZ)
 async function handleUpdate() {
     if (isCooldown) return;
 
@@ -72,13 +84,16 @@ async function handleUpdate() {
                 const cell = document.getElementById('cell-' + id.trim());
                 if (cell) cell.classList.add('marked');
             });
+            // ย้ำอีกรอบว่า JJAZ ต้องม่วงเสมอ แม้จะ Refresh
+            const special = document.getElementById('special-cell');
+            if(special) special.classList.add('marked');
+            
             btnText.innerText = "Updated!";
         }
     } catch (err) {
         btnText.innerText = "Try again";
     }
 
-    // เริ่มระบบหน่วงเวลา (Cooldown)
     isCooldown = true;
     let seconds = 5;
     if(btnIcon) btnIcon.style.animation = "none";
@@ -97,7 +112,6 @@ async function handleUpdate() {
     }, 1000);
 }
 
-// เพิ่ม CSS สำหรับหมุนไอคอน
 const style = document.createElement('style');
 style.innerHTML = `@keyframes spin { 100% { transform:rotate(360deg); } }`;
 document.head.appendChild(style);
