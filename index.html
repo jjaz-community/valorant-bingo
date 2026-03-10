@@ -120,19 +120,32 @@
         /* --- ปุ่ม Refresh --- */
         .refresh-area { text-align: center; }
         .refresh-button {
-            background-color: #ff4655; 
-            color: white; 
-            padding: 8px 20px; 
-            border: none; 
-            border-radius: 4px;
-            font-weight: bold; 
-            cursor: pointer; 
-            font-size: 14px; 
-            transition: 0.3s;
-            font-family: 'Kanit', sans-serif;
-        }
-        .refresh-button:hover { background-color: #ff5864; box-shadow: 0 0 15px rgba(255, 70, 85, 0.4); }
-        .refresh-button:disabled { background-color: #444; cursor: not-allowed; }
+    background-color: rgba(0, 68, 255, 0.2); /* สีน้ำเงินจางๆ แบบโปร่งแสง */
+    color: #4da6ff; /* ตัวอักษรสีน้ำเงินสว่าง */
+    padding: 8px 18px;
+    border: 1px solid rgba(77, 166, 255, 0.4); /* เส้นขอบบางๆ */
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 13px;
+    transition: 0.3s;
+    font-family: 'Kanit', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.refresh-button:hover {
+    background-color: rgba(0, 68, 255, 0.4); /* เข้มขึ้นนิดหน่อยเวลาเอาเมาส์วาง */
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(0, 68, 255, 0.5); /* เรืองแสงสีน้ำเงินเบาๆ */
+}
+
+.refresh-button:disabled {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #444;
+    border-color: #333;
+    cursor: not-allowed;
+}
 
         /* --- ตารางบิงโก --- */
         .bingo-grid {
@@ -180,5 +193,6 @@
     <script src="script.js"></script>
 </body>
 </html>
+
 
 
