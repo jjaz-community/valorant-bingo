@@ -100,19 +100,29 @@
         }
 
         .btn-primary { 
-    background: #5c6eff; /* สีน้ำเงินสว่างตามรูป */
-    color: #ffffff; 
+    background-color: #726bff; /* สีม่วงลาเวนเดอร์ตามรูปเป๊ะๆ */
+    color: #ffffff !important; /* ตัวหนังสือสีขาวบริสุทธิ์ */
     border: none; 
-    padding: 10px 25px; 
-    font-weight: bold; 
+    padding: 12px 25px; 
+    font-weight: 700; /* ตัวหนากำลังดี */
     cursor: pointer; 
-    border-radius: 8px; 
+    border-radius: 10px; /* ขอบมนสวยงามตามรูป */
     font-family: 'Kanit', sans-serif;
-    text-shadow: none; /* ห้ามฟุ้ง */
     font-size: 16px;
-    transition: 0.3s;
+    text-shadow: none !important; /* ปิดความฟุ้งเพื่อให้ตัวหนังสือเรียบคม */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* เงาบางๆ ให้ปุ่มดูมีมิติ */
+    transition: all 0.3s ease;
 }
-.btn-primary:hover { background: #4a59ff; transform: scale(1.05); }
+
+.btn-primary:hover { 
+    background-color: #5c54ff; /* สีม่วงเข้มขึ้นนิดหน่อยเวลาเอาเมาส์วาง */
+    transform: translateY(-1px); /* ยกตัวขึ้นเล็กน้อย */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary:active {
+    transform: translateY(0); /* เอฟเฟกต์ตอนกดปุ่ม */
+}
 
         /* --- ปุ่ม Refresh --- */
         .refresh-area { text-align: center; }
@@ -192,6 +202,7 @@
     <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
