@@ -37,12 +37,24 @@ async function generateBingo() {
 
 // ฟังก์ชันส่งข้อมูลไปบันทึกที่ Google Sheets (สำหรับ Host: JJAZ420)
 async function saveEvent(index) {
+    const currentUsername = document.getElementById('username').value;
+    
+    // ดึงสถานะปัจจุบันของทุกช่องที่ถูก marked (ยกเว้นช่องกลาง)
+    const markedCells = Array.from(document.querySelectorAll('.bingo-cell.marked'))
+        .filter(cell => cell.id !== 'special-cell') // ไม่เอาช่องกลาง
+        .map(cell => cell.id.replace('cell-', '')); // เอาเฉพาะตัวเลข ID
+    
+    const currentState = markedCells.join(',');
+
     try {
-        // ส่งคำสั่งไป Google Script เพื่อบันทึกหรือลบ index
-        await fetch(`${SCRIPT_URL}?action=mark&id=${index}`);
-        console.log("Sync ข้อมูลช่องที่ " + index + " สำเร็จ");
+        // เปลี่ยนมาใช้ setEvent และใส่ key "1234" ตามใน Apps Script ของคุณ
+        const url = `${SCRIPT_URL}?action=setEvent&user=${currentUsername}&key=1234&event=bingo_update&state=${currentState}`;
+        
+        const response = await fetch(url);
+        const result = await response.text();
+        console.log("Sync to Sheets:", result);
     } catch (err) {
-        console.error("บันทึกไม่สำเร็จ:", err);
+        console.error("Sync failed:", err);
     }
 }
 
@@ -221,3 +233,4 @@ function closeBingo() {
         video.currentTime = 0;
     }
 }
+
