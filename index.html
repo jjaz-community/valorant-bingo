@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Kanit:wght@400;700&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JJAZ Valorant Bingo</title>
@@ -26,11 +27,10 @@
         </div>
 
         <div id="bingo-board" class="bingo-grid">
-            <p style="grid-column: span 5; color: #888; margin-top: 50px;">
-            <p style="grid-column: span 5; color: #ece8e1; margin-top: 50px; font-weight: bold;">
-                กรุณาใส่ชื่อแล้วกด Generate Bingo
-            </p>
-        </div>
+    <p style="grid-column: span 5; color: #ece8e1; margin-top: 50px; font-weight: bold; font-family: 'Kanit', sans-serif;">
+        กรุณาใส่ชื่อแล้วกด Generate Bingo
+    </p>
+</div>
 
         <p class="footer-text">Watch Party with JJAZ420</p>
     </div>
@@ -38,7 +38,21 @@
     <style>
         body { background-color: #0f1923; color: white; font-family: 'Segoe UI', sans-serif; }
         .container { display: flex; flex-direction: column; align-items: center; padding: 20px; min-height: 100vh; }
-        
+        h1 { 
+    font-family: 'Oswald', sans-serif; 
+    font-size: 3.5rem; 
+    letter-spacing: 4px; 
+    color: #ff4655; 
+    text-shadow: 2px 2px 0px #ece8e1; 
+    text-transform: uppercase; 
+    margin: 20px 0; 
+}
+
+body { 
+    background-color: #0f1923; 
+    color: white; 
+    font-family: 'Kanit', sans-serif; /* ใช้ Kanit ให้ทั้งเว็บดูโมเดิร์นขึ้น */
+}
         .card { background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 8px; width: 100%; max-width: 500px; margin-bottom: 20px; }
         
         .input-group { display: flex; gap: 10px; margin-bottom: 15px; }
