@@ -54,16 +54,24 @@
         /* --- สไตล์หัวข้อ MASTER SANTIAGO (ม่วงเรืองแสงแบบในรูป) --- */
         h1.header-glow { 
     font-family: 'Orbitron', sans-serif; 
-    font-size: 3.5rem; /* ขนาดตัวอักษรใหญ่ขึ้น */
-    letter-spacing: 5px; /* ระยะห่างตัวอักษรให้ดูเท่ */
+    font-size: 3.8rem; /* ขนาดตัวอักษรใหญ่กำลังดี */
+    letter-spacing: 6px; /* ระยะห่างตัวอักษรให้ดูเป็นทรงสี่เหลี่ยมเท่ๆ เหมือนในรูป */
     text-transform: uppercase;
+    margin-top: 60px; /* เว้นระยะด้านบนนิดหน่อย */
+    margin-bottom: 30px; /* เว้นระยะด้านล่าง */
     color: #ffffff; /* ตัวอักษรสีขาวสว่างตรงกลาง */
-    text-shadow: 
-        0 0 5px #e6e0ff, /* เงาสีม่วงอ่อน */
-        0 0 10px #e6e0ff, /* เงาสีม่วงอ่อนเรืองแสง */
-        0 0 20px #8057ff, /* เงาสีม่วงเข้มตัดเงาสีน้ำเงิน */
-        0 0 30px #8057ff; /* เงาสีม่วงเข้มเรืองแสง */
+    font-weight: 900; /* ใช้ตัวหนาที่สุด (Black) */
     text-align: center;
+    
+    /* เอฟเฟกต์เรืองแสงสีม่วง-น้ำเงินฟุ้งๆ หลายชั้นแบบในรูป */
+    text-shadow: 
+        0 0 5px #fff, 
+        0 0 10px #fff, 
+        0 0 20px #8057ff, 
+        0 0 30px #8057ff, 
+        0 0 40px #8057ff, 
+        0 0 55px #8057ff, 
+        0 0 75px #8057ff;
 }
         .sub-header-glow {
     font-family: 'Orbitron', sans-serif;
@@ -191,6 +199,7 @@
     <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
