@@ -160,16 +160,22 @@
 }
 
         /* --- ตารางบิงโก --- */
-        .bingo-grid {
-            display: grid; 
-            grid-template-columns: repeat(5, 1fr); 
-            gap: 10px;
-            max-width: 550px; 
-            width: 100%; 
-            padding: 15px; 
-            border-radius: 12px; 
-            min-height: 350px;
-        }
+        /* --- แก้ไขส่วนตารางบิงโก --- */
+.bingo-grid {
+    display: grid; 
+    grid-template-columns: repeat(5, 1fr); 
+    gap: 15px; /* เพิ่มระยะห่างระหว่างช่องให้ดูโปร่งขึ้น */
+    
+    /* หัวใจสำคัญ: ปรับความกว้างให้รองรับช่องขนาด 120px */
+    max-width: 800px; 
+    width: 100%; 
+    
+    /* จัดกึ่งกลางซ้าย-ขวา */
+    margin: 40px auto; 
+    
+    padding: 20px;
+    justify-content: center; /* จัดเนื้อหาภายในให้บาลานซ์ */
+}
 
         .bingo-cell {
     background-color: #ffffff; /* พื้นหลังขาวสะอาด */
@@ -224,16 +230,4 @@
     <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
 
