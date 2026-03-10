@@ -44,16 +44,17 @@ function renderBoard(board) {
         cell.innerText = text;
 
         if (text === "JJAZ") {
-            cell.id = "special-cell"; // สำหรับ CSS เรืองแสง
+            cell.id = "special-cell"; 
             cell.classList.add('marked'); 
         } else {
             cell.id = 'cell-' + index;
         }
 
+        // --- แก้ไขจุดนี้: เมื่อคลิกแล้วให้เช็คบิงโกทันที ---
         cell.onclick = function() {
-            // ป้องกันไม่ให้กดติ๊กช่อง JJAZ ออก (หรือถ้าอยากให้กดออกได้ก็เอา if นี้ออกครับ)
             if (this.id !== "special-cell") {
                 this.classList.toggle('marked');
+                checkBingo(); // เรียกฟังก์ชันเช็คบิงโกทุกครั้งที่กด
             }
         };
 
@@ -61,7 +62,7 @@ function renderBoard(board) {
     });
 }
 
-// 3. ฟังก์ชัน Refresh (ป้องกันการลบสีม่วงของ JJAZ)
+// 3. ฟังก์ชัน Refresh (ดึงข้อมูลจาก Google Sheet)
 async function handleUpdate() {
     if (isCooldown) return;
 
@@ -84,10 +85,11 @@ async function handleUpdate() {
                 const cell = document.getElementById('cell-' + id.trim());
                 if (cell) cell.classList.add('marked');
             });
-            // ย้ำอีกรอบว่า JJAZ ต้องม่วงเสมอ แม้จะ Refresh
+            
             const special = document.getElementById('special-cell');
             if(special) special.classList.add('marked');
             
+            checkBingo(); // เช็คบิงโกเผื่อกรณี Refresh แล้วบิงโกพอดี
             btnText.innerText = "Updated!";
         }
     } catch (err) {
@@ -112,17 +114,14 @@ async function handleUpdate() {
     }, 1000);
 }
 
-const style = document.createElement('style');
-style.innerHTML = `@keyframes spin { 100% { transform:rotate(360deg); } }`;
-document.head.appendChild(style);
-
-// ฟังก์ชันเช็คการบิงโก
+// 4. ฟังก์ชันเช็คการบิงโก (ตรวจสอบแถว/หลัก/ทแยง)
 function checkBingo() {
     const cells = document.querySelectorAll('.bingo-cell');
+    if (cells.length === 0) return; // ถ้ายังไม่มีตารางไม่ต้องเช็ค
+
     const size = 5;
     let grid = [];
     
-    // แปลงสถานะตารางเป็น Array 2 มิติ
     for (let i = 0; i < size; i++) {
         grid[i] = [];
         for (let j = 0; j < size; j++) {
@@ -150,9 +149,9 @@ function checkBingo() {
     }
 }
 
-// ฟังก์ชันแสดงเอฟเฟกต์อลังการ
+// 5. ฟังก์ชันแสดงเอฟเฟกต์ (พลุ + วิดีโอพร้อมเสียง)
 function showBingoEffects() {
-    // 1. จุดพลุ
+    // 1. ระบบพลุ
     var duration = 5 * 1000;
     var animationEnd = Date.now() + duration;
     var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 10000 };
@@ -170,24 +169,22 @@ function showBingoEffects() {
     // 2. แสดงวิดีโอและคำว่า BINGO
     const overlay = document.getElementById('bingo-overlay');
     const video = document.getElementById('bingo-video');
-    overlay.style.display = 'flex';
-    video.play();
+    
+    if (overlay && video) {
+        overlay.style.display = 'flex';
+        video.muted = false; // มั่นใจว่าเปิดเสียง
+        video.volume = 1.0;
+        video.play().catch(e => console.log("Video play pending interaction"));
+    }
 }
 
+// 6. ฟังก์ชันปิดหน้าต่างบิงโก
 function closeBingo() {
     const overlay = document.getElementById('bingo-overlay');
     const video = document.getElementById('bingo-video');
-    overlay.style.display = 'none';
-    video.pause();
-    video.currentTime = 0;
-}
-
-// แก้ไขฟังก์ชัน onclick เดิมใน renderBoard ของคุณ
-// ให้เพิ่ม checkBingo() เข้าไปต่อท้าย toggle('marked') แบบนี้ครับ:
-/* cell.onclick = function() {
-    if (this.id !== "special-cell") {
-        this.classList.toggle('marked');
-        checkBingo(); // เพิ่มบรรทัดนี้!!!
+    if (overlay) overlay.style.display = 'none';
+    if (video) {
+        video.pause();
+        video.currentTime = 0;
     }
-};
-*/
+}
