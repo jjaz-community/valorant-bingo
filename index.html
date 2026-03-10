@@ -4,9 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MASTER SANTIAGO BINGO</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Kanit:wght@300;500;600&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Kanit:wght@300;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="header-glow">MASTER SANTIAGO</h1>
+<p class="sub-header-glow">WATCH PARTY WITH JJAZ</p>
+        <div class="control-panel card">
+            <div class="input-group">
+                <input type="text" id="username" placeholder="Twitch/Youtube name" autofocus>
+                <button onclick="generateBingo()" class="btn-primary">Generate Bingo</button>
+            </div>
+            
+            <div class="refresh-area">
+                <button id="updateBtn" onclick="handleUpdate()" class="refresh-button">
+                    <span id="btnIcon">🔄</span> <span id="btnText">Refresh</span>
+                </button>
+                <p id="cooldownMsg"></p>
+            </div>
+        </div>
+
+        <div id="bingo-board" class="bingo-grid"></div>
+        
+        <p class="footer-text">Watch Party with JJAZ420</p>
+    </div>
+
     <style>
-        /* --- 1. การตั้งค่าหน้าเว็บหลัก --- */
+        /* ตั้งค่าพื้นฐาน */
         body { 
             background-color: #0f1923; 
             color: white; 
@@ -25,29 +51,31 @@
             width: 100%;
         }
 
-        /* --- 2. หัวข้อ MASTER SANTIAGO (ม่วงเรืองแสง) --- */
+        /* --- สไตล์หัวข้อ MASTER SANTIAGO (ม่วงเรืองแสงแบบในรูป) --- */
         h1.header-glow { 
-            font-family: 'Orbitron', sans-serif; 
-            font-size: 3rem; 
-            letter-spacing: 6px; 
-            text-transform: uppercase;
-            color: #ffffff;
-            text-shadow: 0 0 10px #8057ff, 0 0 20px #8057ff;
-            margin: 30px 0 10px 0;
-            text-align: center;
-        }
-
+    font-family: 'Orbitron', sans-serif; 
+    font-size: 3rem; 
+    letter-spacing: 6px; 
+    text-transform: uppercase;
+    color: #ffffff;
+    text-shadow: 0 0 10px #8057ff, 0 0 20px #8057ff; /* ฟุ้งเฉพาะหัวข้อ */
+    margin: 30px 0;
+    text-align: center;
+}
         .sub-header-glow {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.1rem;
-            letter-spacing: 3px;
-            color: #ffffff;
-            margin-bottom: 40px;
-            text-shadow: 0 0 5px #fff;
-            opacity: 0.8;
-        }
-
-        /* --- 3. แผงควบคุมและปุ่ม (ม่วงลาเวนเดอร์ ตัวบาง อ่านง่าย) --- */
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 4px;
+    color: #ffffff; /* สีขาว */
+    margin-top: 20px; /* ขยับขึ้นไปชิดกับชื่อหลัก */
+    margin-bottom: 40px;
+    text-shadow: 
+        0 0 5px #fff, 
+        0 0 10px rgba(255, 255, 255, 0.5); /* เรืองแสงสีขาวนวลๆ */
+    opacity: 0.9;
+    text-align: center;
+}
+        /* --- แผงควบคุม --- */
         .card { 
             background: rgba(255, 255, 255, 0.05); 
             padding: 25px; 
@@ -55,102 +83,157 @@
             width: 100%; 
             max-width: 550px; 
             margin-bottom: 30px;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px); /* เพิ่มความเบลอให้ดูพรีเมียม */
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .input-group { display: flex; gap: 10px; margin-bottom: 15px; }
         
         input { 
-            flex: 1; padding: 12px 15px; border-radius: 8px; border: 1px solid #444; 
-            background: #1a2531; color: white; font-family: 'Kanit', sans-serif;
+            flex: 1; 
+            padding: 12px 15px; 
+            border-radius: 6px; 
+            border: 1px solid #444; 
+            background: #1a2531; 
+            color: white;
+            font-family: 'Kanit', sans-serif;
         }
 
         .btn-primary { 
-            background-color: #726bff; 
-            color: #ffffff !important; 
-            font-family: 'Kanit', sans-serif; 
-            font-size: 16px; 
-            font-weight: 500; /* ตัวบางลงตามที่ต้องการ */
-            letter-spacing: 0.5px; 
-            text-shadow: none !important; /* ปิดความฟุ้งเพื่อให้คมชัด */
-            padding: 10px 25px; 
-            border: none; border-radius: 10px; cursor: pointer;
-            transition: all 0.2s ease;
-        }
+    background-color: #726bff; /* สีม่วงลาเวนเดอร์ตามแบบที่คุณชอบ */
+    color: #ffffff !important; 
+    
+    /* --- ปรับฟอนต์ให้บางลงและคมชัด --- */
+    font-family: 'Inter', 'Kanit', sans-serif; 
+    font-size: 16px; 
+    font-weight: 400; /* ปรับค่าจาก 700 เหลือ 400 เพื่อให้ตัวบางลง */
+    letter-spacing: 0.5px; 
+    text-shadow: none !important; /* ปิดความฟุ้งเพื่อให้ขอบตัวอักษรชัดที่สุด */
+    /* ------------------------------ */
 
-        .btn-primary:hover { background-color: #5c54ff; transform: translateY(-1px); }
+    padding: 10px 25px; 
+    border: none; 
+    border-radius: 10px; 
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-        /* --- 4. ตารางบิงโก (ตรงกลางหน้าจอ) --- */
+.btn-primary:hover {
+    background-color: #5c54ff;
+    transform: translateY(-1px);
+}
+.btn-primary:active {
+    transform: translateY(0); /* เอฟเฟกต์ตอนกดปุ่ม */
+}
+
+        /* --- ปุ่ม Refresh --- */
+        .refresh-area { text-align: center; }
+        .refresh-button {
+    background-color: rgba(0, 68, 255, 0.2); /* สีน้ำเงินจางๆ แบบโปร่งแสง */
+    color: #4da6ff; /* ตัวอักษรสีน้ำเงินสว่าง */
+    padding: 8px 18px;
+    border: 1px solid rgba(77, 166, 255, 0.4); /* เส้นขอบบางๆ */
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 13px;
+    transition: 0.3s;
+    font-family: 'Kanit', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.refresh-button:hover {
+    background-color: rgba(0, 68, 255, 0.4); /* เข้มขึ้นนิดหน่อยเวลาเอาเมาส์วาง */
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(0, 68, 255, 0.5); /* เรืองแสงสีน้ำเงินเบาๆ */
+}
+
+.refresh-button:disabled {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #444;
+    border-color: #333;
+    cursor: not-allowed;
+}
+
+        /* --- ตารางบิงโก --- */
         .bingo-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 15px;
-            max-width: 800px;
-            margin: 0 auto 40px auto; /* จัดกลาง */
-            padding: 20px;
+            display: grid; 
+            grid-template-columns: repeat(5, 1fr); 
+            gap: 10px;
+            max-width: 550px; 
+            width: 100%; 
+            padding: 15px; 
+            border-radius: 12px; 
+            min-height: 350px;
         }
 
         .bingo-cell {
-            background-color: #ffffff; 
-            color: #000000; 
-            font-family: 'Montserrat', 'Kanit', sans-serif; 
-            font-size: 1.1rem;
-            font-weight: 600;
-            display: flex; align-items: center; justify-content: center;
-            text-align: center; padding: 15px; border-radius: 15px;
-            min-height: 110px; aspect-ratio: 1 / 1;
-            transition: all 0.2s ease; cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            text-shadow: none !important;
-        }
+    background-color: #ffffff; /* พื้นหลังขาวสะอาด */
+    color: #000000; /* ตัวหนังสือดำคมชัด */
+    
+    /* --- ปรับฟอนต์ให้สวยและอ่านง่าย --- */
+    font-family: 'Montserrat', 'Kanit', sans-serif; 
+    font-size: 1.1rem; /* เพิ่มขนาดฟอนต์ให้ใหญ่ขึ้น */
+    font-weight: 600; /* ความหนากำลังดี ไม่บางเกินไป */
+    line-height: 1.2; /* ระยะบรรทัดที่พอดี */
+    letter-spacing: 0.3px;
+    text-shadow: none !important; /* ปิดความฟุ้ง */
+    /* ---------------------------------- */
 
-        /* --- 5. ช่องพิเศษ JJAZ (เด่นที่สุด) --- */
-        #special-cell {
-            background: linear-gradient(135deg, #726bff 0%, #a8a4ff 100%) !important;
-            color: #ffffff !important;
-            font-family: 'Orbitron', sans-serif !important;
-            font-size: 1.8rem !important;
-            font-weight: 900 !important;
-            letter-spacing: 3px;
-            border: 4px solid #ffb02e !important; /* ขอบทอง Radiant */
-            box-shadow: 0 0 20px rgba(114, 107, 255, 0.6);
-            animation: pulse-glow 2s infinite;
-        }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 15px; /* เพิ่มพื้นที่ว่างด้านในให้ตัวหนังสือไม่ชิดขอบ */
+    border-radius: 15px; /* เพิ่มความโค้งมนให้ดู Modern */
+    border: none;
+    
+    /* --- เพิ่มขนาด Cell --- */
+    min-height: 120px; /* กำหนดความสูงขั้นต่ำให้ใหญ่ขึ้น */
+    aspect-ratio: 1 / 1; 
+    /* -------------------- */
+    
+    transition: all 0.2s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* เพิ่มเงาให้นูนเด่นออกมาจากพื้นหลัง */
+}
 
-        @keyframes pulse-glow {
-            0% { transform: scale(1.03); }
-            50% { transform: scale(1.07); box-shadow: 0 0 25px rgba(255, 176, 46, 0.7); }
-            100% { transform: scale(1.03); }
-        }
+/* เอฟเฟกต์เวลาเมาส์วาง หรือกดเลือก */
+.bingo-cell:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
 
-        .marked { background-color: #726bff !important; color: #ffffff !important; transform: scale(0.95); }
-        .footer-text { color: #555; font-size: 12px; margin-top: 20px; }
-        .refresh-button { background: rgba(77, 166, 255, 0.1); color: #4da6ff; border: 1px solid #4da6ff; padding: 5px 15px; border-radius: 5px; cursor: pointer; }
+.marked {
+    background-color: #726bff !important; /* สีม่วงเดียวกับปุ่ม */
+    color: #ffffff !important;
+    transform: scale(0.95);
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+}
+        #cooldownMsg { font-size: 12px; color: #888; margin-top: 8px; height: 15px; }
+        .footer-text { margin-top: auto; padding-top: 40px; color: #555; font-size: 12px; letter-spacing: 1px; }
+
+        /* Animation หมุนไอคอน */
+        @keyframes spin { 100% { transform: rotate(360deg); } }
     </style>
-</head>
-<body>
-
-    <div class="container">
-        <h1 class="header-glow">MASTER SANTIAGO</h1>
-        <p class="sub-header-glow">WATCH PARTY WITH JJAZ</p>
-
-        <div class="control-panel card">
-            <div class="input-group">
-                <input type="text" id="username" placeholder="Twitch/Youtube name">
-                <button onclick="generateBingo()" class="btn-primary">Generate Bingo</button>
-            </div>
-            <div class="refresh-area">
-                <button id="updateBtn" onclick="handleUpdate()" class="refresh-button">🔄 Refresh</button>
-            </div>
-        </div>
-
-        <div id="bingo-board" class="bingo-grid">
-            </div>
-
-        <p class="footer-text">Watch Party with JJAZ420</p>
-    </div>
 
     <script src="script.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
