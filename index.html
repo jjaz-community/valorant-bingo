@@ -100,29 +100,30 @@
         }
 
         .btn-primary { 
-    background-color: #726bff; /* สีม่วงลาเวนเดอร์ที่ต้องการ */
-    color: #ffffff !important; /* ตัวหนังสือสีขาวบริสุทธิ์ */
+    background-color: #726bff; /* สีม่วงลาเวนเดอร์ตามแบบที่คุณชอบ */
+    color: #ffffff !important; 
     
-    /* --- ส่วนที่สำคัญที่สุดเพื่อให้หน้าเว็บอ่านง่าย --- */
-    font-family: 'Kanit', sans-serif; /* เปลี่ยนมาใช้ฟอนต์ที่อ่านง่ายกว่า */
-    font-size: 18px; /* ปรับขนาดให้ใหญ่ขึ้นเล็กน้อย */
-    font-weight: 700; /* ใช้ตัวหนาเพื่อให้ตัดกับพื้นหลัง */
-    text-shadow: none !important; /* สั่งปิดความฟุ้งทั้งหมดเพื่อให้ตัวหนังสือคมกริบ */
-    letter-spacing: 0px; /* ลดระยะห่างตัวอักษรให้อยู่ในระดับปกติ */
-    /* ------------------------------------------- */
+    /* --- ปรับฟอนต์ให้บางลงและคมชัด --- */
+    font-family: 'Inter', 'Kanit', sans-serif; 
+    font-size: 16px; 
+    font-weight: 400; /* ปรับค่าจาก 700 เหลือ 400 เพื่อให้ตัวบางลง */
+    letter-spacing: 0.5px; 
+    text-shadow: none !important; /* ปิดความฟุ้งเพื่อให้ขอบตัวอักษรชัดที่สุด */
+    /* ------------------------------ */
 
-    padding: 12px 30px; 
+    padding: 10px 25px; 
     border: none; 
-    border-radius: 12px; 
+    border-radius: 10px; 
     cursor: pointer;
     transition: all 0.2s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-primary:hover {
     background-color: #5c54ff;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-1px);
 }
 .btn-primary:active {
     transform: translateY(0); /* เอฟเฟกต์ตอนกดปุ่ม */
@@ -206,6 +207,7 @@
     <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
