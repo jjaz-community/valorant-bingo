@@ -54,24 +54,13 @@
         /* --- สไตล์หัวข้อ MASTER SANTIAGO (ม่วงเรืองแสงแบบในรูป) --- */
         h1.header-glow { 
     font-family: 'Orbitron', sans-serif; 
-    font-size: 3.8rem; /* ขนาดตัวอักษรใหญ่กำลังดี */
-    letter-spacing: 6px; /* ระยะห่างตัวอักษรให้ดูเป็นทรงสี่เหลี่ยมเท่ๆ เหมือนในรูป */
+    font-size: 3rem; 
+    letter-spacing: 6px; 
     text-transform: uppercase;
-    margin-top: 60px; /* เว้นระยะด้านบนนิดหน่อย */
-    margin-bottom: 30px; /* เว้นระยะด้านล่าง */
-    color: #ffffff; /* ตัวอักษรสีขาวสว่างตรงกลาง */
-    font-weight: 900; /* ใช้ตัวหนาที่สุด (Black) */
+    color: #ffffff;
+    text-shadow: 0 0 10px #8057ff, 0 0 20px #8057ff; /* ฟุ้งเฉพาะหัวข้อ */
+    margin: 30px 0;
     text-align: center;
-    
-    /* เอฟเฟกต์เรืองแสงสีม่วง-น้ำเงินฟุ้งๆ หลายชั้นแบบในรูป */
-    text-shadow: 
-        0 0 5px #fff, 
-        0 0 10px #fff, 
-        0 0 20px #8057ff, 
-        0 0 30px #8057ff, 
-        0 0 40px #8057ff, 
-        0 0 55px #8057ff, 
-        0 0 75px #8057ff;
 }
         .sub-header-glow {
     font-family: 'Orbitron', sans-serif;
@@ -111,17 +100,19 @@
         }
 
         .btn-primary { 
-            background: #ece8e1; 
-            color: #0f1923; 
-            border: none; 
-            padding: 0 25px; 
-            font-weight: bold; 
-            cursor: pointer; 
-            border-radius: 6px; 
-            transition: 0.3s;
-            font-family: 'Kanit', sans-serif;
-        }
-        .btn-primary:hover { background: #ffffff; transform: translateY(-2px); }
+    background: #5c6eff; /* สีน้ำเงินสว่างตามรูป */
+    color: #ffffff; 
+    border: none; 
+    padding: 10px 25px; 
+    font-weight: bold; 
+    cursor: pointer; 
+    border-radius: 8px; 
+    font-family: 'Kanit', sans-serif;
+    text-shadow: none; /* ห้ามฟุ้ง */
+    font-size: 16px;
+    transition: 0.3s;
+}
+.btn-primary:hover { background: #4a59ff; transform: scale(1.05); }
 
         /* --- ปุ่ม Refresh --- */
         .refresh-area { text-align: center; }
@@ -166,19 +157,21 @@
         }
 
         .bingo-cell {
-            background: rgba(255, 255, 255, 0.08); 
-            aspect-ratio: 1/1;
-            display: flex; 
-            align-items: center; 
-            justify-content: center;
-            text-align: center; 
-            padding: 8px; 
-            font-size: clamp(10px, 2.5vw, 14px); 
-            border-radius: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-            transition: 0.3s;
-            line-height: 1.2;
-        }
+            background: #ffffff; /* ช่องสีขาวสะอาด */
+    color: #000000; /* ตัวหนังสือสีดำสนิท อ่านง่ายสุด */
+    aspect-ratio: 1/1;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    text-align: center; 
+    padding: 10px; 
+    font-size: 14px; 
+    font-weight: 800; /* ตัวหนาพิเศษ */
+    border-radius: 12px; /* ขอบมนตามรูป */
+    border: 1px solid #ddd;
+    text-shadow: none; /* ห้ามฟุ้งเด็ดขาด */
+    line-height: 1.2;
+}
 
         /* ช่องที่ถูกมาร์คแต้ม */
         .marked { 
@@ -199,6 +192,7 @@
     <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
