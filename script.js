@@ -240,5 +240,16 @@ function closeBingo() {
     }
 }
 
+// --- ระบบ Auto-Refresh ทุกๆ 10 วินาที ---
+setInterval(() => {
+    const currentUsername = document.getElementById('username').value;
+    
+    // จะเริ่มดึงข้อมูลอัตโนมัติก็ต่อเมื่อ User ใส่ชื่อและกดสุ่มบอร์ดแล้วเท่านั้น
+    // และจะไม่รบกวน JJAZ420 ในขณะที่เขากำลังคุมเกม
+    if (currentUsername && currentUsername !== "JJAZ420") {
+        console.log("Auto-syncing data...");
+        handleUpdate(); 
+    }
+}, 10000); // 10000 มิลลิวินาที = 10 วินาที
 
 
