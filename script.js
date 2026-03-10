@@ -43,18 +43,21 @@ function renderBoard(board) {
         cell.className = 'bingo-cell';
         cell.innerText = text;
 
+        // --- แก้ไขตรงนี้: ให้ทุกช่องมี ID cell-X เสมอ เพื่อให้ Refresh ทำงานได้ ---
+        cell.id = 'cell-' + index; 
+
+        // ถ้าเป็นช่อง JJAZ ให้เพิ่ม ID พิเศษ "อีกอัน" หรือใช้ Class แทน
         if (text === "JJAZ") {
-            cell.id = "special-cell"; 
-            cell.classList.add('marked'); 
-        } else {
-            cell.id = 'cell-' + index;
+            // เราจะใช้ SetAttribute เพื่อให้มันมี ID พิเศษสำหรับ CSS แต่ยังคง ID หลักไว้
+            cell.setAttribute('data-special', 'true'); 
+            cell.classList.add('marked', 'special-jjaz'); // ใช้ Class แทน ID ในการแต่งสวย
         }
 
-        // --- แก้ไขจุดนี้: เมื่อคลิกแล้วให้เช็คบิงโกทันที ---
         cell.onclick = function() {
-            if (this.id !== "special-cell") {
+            // ช่อง JJAZ มาร์คค้างไว้ตลอด หรือจะให้กดสลับก็ได้
+            if (text !== "JJAZ") {
                 this.classList.toggle('marked');
-                checkBingo(); // เรียกฟังก์ชันเช็คบิงโกทุกครั้งที่กด
+                checkBingo(); 
             }
         };
 
@@ -188,3 +191,4 @@ function closeBingo() {
         video.currentTime = 0;
     }
 }
+
