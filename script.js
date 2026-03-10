@@ -1,4 +1,4 @@
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxP4oduAufLWfzP1Ytg88M3vJ_x4c0BCbs9asakJ7btzMJC8fgA_hOtExkD8zUiX3VW3Q/exec"; 
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw4kovYHqr3Mh-6Mp6ysT-AaP-NOJZirSHsLSVJbROMTzrZG1F_cUIqv4vxItlR0z1evg/exec"; 
 let isCooldown = false;
 let hasBingoed = false; // ป้องกันการเด้งพลุซ้ำถ้าบิงโกไปแล้ว
 
@@ -239,5 +239,6 @@ function closeBingo() {
         video.currentTime = 0;
     }
 }
+
 
 
