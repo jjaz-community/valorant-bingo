@@ -3,7 +3,7 @@ let hostSecret = "";
 window.alreadyBingo = false;
 
 // *** สำคัญ: ก๊อปปี้ URL ของ Web App จาก Google Apps Script มาใส่ตรงนี้ ***
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwDhwsJ-5gaibiOPL-cHDmFSdRbLzM0H_bJYEXiAa9wDuIRQZbsmPqPPTD0AHC4dL9yrA/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxP4oduAufLWfzP1Ytg88M3vJ_x4c0BCbs9asakJ7btzMJC8fgA_hOtExkD8zUiX3VW3Q/exec";
 
 async function gen() {
     let name = document.getElementById("name").value.trim();
