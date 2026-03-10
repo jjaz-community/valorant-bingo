@@ -172,20 +172,34 @@
         }
 
         .bingo-cell {
-            background: #ffffff; /* ช่องสีขาวสะอาด */
-    color: #000000; /* ตัวหนังสือสีดำสนิท อ่านง่ายสุด */
-    aspect-ratio: 1/1;
-    display: flex; 
-    align-items: center; 
+    background-color: #ffffff; /* พื้นหลังขาวทึบเพื่อให้ตัวหนังสือเด่นที่สุด */
+    color: #000000; /* ตัวหนังสือสีดำสนิทเพื่อความคมชัด */
+    
+    /* --- ปรับแต่งฟอนต์ให้เหมือนรูปที่ 2 (อ่านง่าย ไม่เบียด) --- */
+    font-family: 'Inter', 'Kanit', sans-serif; 
+    font-size: 14px; /* ขนาดกำลังดีสำหรับข้อความยาวๆ ในช่อง */
+    font-weight: 500; /* ความหนาระดับปานกลาง ไม่หนาจนเส้นอักษรติดกัน */
+    line-height: 1.4; /* เพิ่มระยะห่างระหว่างบรรทัด ไม่ให้ตัวหนังสือซ้อนกัน */
+    letter-spacing: 0.5px; /* เพิ่มระยะห่างระหว่างตัวอักษรเล็กน้อย */
+    /* ---------------------------------------------------- */
+
+    display: flex;
+    align-items: center;
     justify-content: center;
-    text-align: center; 
-    padding: 10px; 
-    font-size: 14px; 
-    font-weight: 800; /* ตัวหนาพิเศษ */
-    border-radius: 12px; /* ขอบมนตามรูป */
-    border: 1px solid #ddd;
-    text-shadow: none; /* ห้ามฟุ้งเด็ดขาด */
-    line-height: 1.2;
+    text-align: center;
+    padding: 10px;
+    border-radius: 12px; /* ขอบมนดูทันสมัย */
+    border: 1px solid #eeeeee;
+    aspect-ratio: 1 / 1; /* ให้ช่องเป็นสี่เหลี่ยมจัตุรัสเป๊ะๆ */
+    transition: all 0.2s ease;
+    cursor: pointer;
+    text-shadow: none !important; /* ปิดเงาฟุ้งเพื่อให้ตัวหนังสือคมกริบ */
+}
+
+/* เอฟเฟกต์เวลาเอาเมาส์ไปชี้ */
+.bingo-cell:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
         /* ช่องที่ถูกมาร์คแต้ม */
@@ -207,6 +221,7 @@
     <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
