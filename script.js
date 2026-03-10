@@ -1,7 +1,7 @@
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxP4oduAufLWfzP1Ytg88M3vJ_x4c0BCbs9asakJ7btzMJC8fgA_hOtExkD8zUiX3VW3Q/exec"; // *** อย่าลืมเอา URL เดิมมาใส่ตรงนี้ ***
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxP4oduAufLWfzP1Ytg88M3vJ_x4c0BCbs9asakJ7btzMJC8fgA_hOtExkD8zUiX3VW3Q/exec"; 
 let isCooldown = false;
 
-// 1. ฟังก์ชันสุ่มบิงโก (สำหรับปุ่ม Generate)
+// 1. ฟังก์ชันสุ่มบิงโก (ทำงานในหน้าเดียว ไม่มีการซ่อนหน้า)
 async function generateBingo() {
     const username = document.getElementById('username').value;
     if (!username) {
@@ -9,24 +9,32 @@ async function generateBingo() {
         return;
     }
 
+    // เปลี่ยนข้อความปุ่มระหว่างโหลดให้ดูโปรขึ้น
+    const genBtn = document.querySelector('.btn-primary');
+    const originalText = genBtn.innerText;
+    genBtn.innerText = "Generating...";
+    genBtn.disabled = true;
+
     try {
         const response = await fetch(`${SCRIPT_URL}?action=generate&user=${encodeURIComponent(username)}`);
         const board = await response.json();
         
         if (board && !board.error) {
-            renderBoard(board); // ฟังก์ชันวาดตาราง
-            document.getElementById('setup-section').style.display = 'none';
-            document.getElementById('main-content').style.display = 'block';
+            renderBoard(board); // วาดตารางลงไปในหน้าเดิม
+            console.log("สร้างตารางสำเร็จสำหรับคุณ " + username);
         } else {
             alert("เกิดข้อผิดพลาด: " + (board.error || "ไม่สามารถดึงข้อมูลได้"));
         }
     } catch (err) {
         console.error(err);
         alert("เชื่อมต่อกับ Google ไม่ได้ (Failed to fetch)");
+    } finally {
+        genBtn.innerText = originalText;
+        genBtn.disabled = false;
     }
 }
 
-// 2. ฟังก์ชันวาดตารางลงหน้าเว็บ
+// 2. ฟังก์ชันวาดตารางลงหน้าเว็บ (ไม่เปลี่ยนแปลง)
 function renderBoard(board) {
     const container = document.getElementById('bingo-board');
     container.innerHTML = '';
@@ -35,12 +43,13 @@ function renderBoard(board) {
         cell.className = 'bingo-cell';
         cell.id = 'cell-' + index;
         cell.innerText = text;
+        // ถ้าเป็นช่องกลาง (JJAZ) ให้มาร์คสีไว้เลย
         if (text === "JJAZ") cell.classList.add('marked', 'center-cell');
         container.appendChild(cell);
     });
 }
 
-// 3. ฟังก์ชันปุ่มอัปเดต (ที่คุณเพิ่งเพิ่ม)
+// 3. ฟังก์ชันปุ่ม Refresh (แบบมี Cooldown 5 วินาที)
 async function handleUpdate() {
     if (isCooldown) return;
 
@@ -69,8 +78,11 @@ async function handleUpdate() {
         btnText.innerText = "Try again";
     }
 
+    // เริ่มระบบหน่วงเวลา (Cooldown)
     isCooldown = true;
     let seconds = 5;
+    if(btnIcon) btnIcon.style.animation = "none";
+
     const timer = setInterval(() => {
         seconds--;
         if (seconds <= 0) {
@@ -89,4 +101,3 @@ async function handleUpdate() {
 const style = document.createElement('style');
 style.innerHTML = `@keyframes spin { 100% { transform:rotate(360deg); } }`;
 document.head.appendChild(style);
-
