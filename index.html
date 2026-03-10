@@ -11,7 +11,7 @@
 
     <div class="container">
         <h1 class="header-glow">MASTER SANTIAGO</h1>
-
+<p class="sub-header-glow">WATCH PARTY WITH JJAZ</p>
         <div class="control-panel card">
             <div class="input-group">
                 <input type="text" id="username" placeholder="Twitch/Youtube name" autofocus>
@@ -67,7 +67,19 @@
                 0 0 40px #7a5cff;
             text-align: center;
         }
-
+        .sub-header-glow {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 4px;
+    color: #ffffff; /* สีขาว */
+    margin-top: -30px; /* ขยับขึ้นไปชิดกับชื่อหลัก */
+    margin-bottom: 40px;
+    text-shadow: 
+        0 0 5px #fff, 
+        0 0 10px rgba(255, 255, 255, 0.5); /* เรืองแสงสีขาวนวลๆ */
+    opacity: 0.9;
+    text-align: center;
+}
         /* --- แผงควบคุม --- */
         .card { 
             background: rgba(255, 255, 255, 0.05); 
@@ -168,3 +180,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+
