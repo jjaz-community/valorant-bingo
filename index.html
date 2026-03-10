@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Kanit:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JJAZ Valorant Bingo</title>
@@ -10,11 +10,11 @@
 <body>
 
     <div class="container">
-        <h1>MASTER SANTIAGO</h1>
+        <h1 class="header-glow">MASTER SANTIAGO</h1>
 
         <div class="control-panel card">
             <div class="input-group">
-                <input type="text" id="username" placeholder="Twicht/Youtube name" autofocus>
+                <input type="text" id="username" placeholder="Twitch/Youtube name" autofocus>
                 <button onclick="generateBingo()" class="btn-primary">Generate Bingo</button>
             </div>
             
@@ -26,37 +26,61 @@
             </div>
         </div>
 
-        <div id="bingo-board" class="bingo-grid">
-</div>
-    <style>
-        body { background-color: #0f1923; color: white; font-family: 'Segoe UI', sans-serif; }
-        .container { display: flex; flex-direction: column; align-items: center; padding: 20px; min-height: 100vh; }
-        h1 { 
-    font-family: 'Oswald', sans-serif; 
-    font-size: 3.5rem; 
-    letter-spacing: 4px; 
-    color: #ff4655; 
-    text-shadow: 2px 2px 0px #ece8e1; 
-    text-transform: uppercase; 
-    margin: 20px 0; 
-}
+        <div id="bingo-board" class="bingo-grid"></div>
+        
+        <p class="footer-text">Watch Party with JJAZ420</p>
+    </div>
 
-body { 
-    background-color: #0f1923; 
-    color: white; 
-    font-family: 'Kanit', sans-serif; /* ใช้ Kanit ให้ทั้งเว็บดูโมเดิร์นขึ้น */
-}
+    <style>
+        /* ตั้งค่าพื้นฐานและฟอนต์ทั้งเว็บ */
+        body { 
+            background-color: #0f1923; 
+            color: white; 
+            font-family: 'Kanit', sans-serif; 
+            margin: 0;
+        }
+
+        .container { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding: 20px; 
+            min-height: 100vh; 
+        }
+
+        /* --- สไตล์หัวข้อ MASTER SANTIAGO (ม่วงอ่อนเรืองแสง) --- */
+        h1.header-glow { 
+            font-family: 'Montserrat', sans-serif; 
+            font-size: 4.5rem; 
+            letter-spacing: 6px; 
+            text-transform: uppercase;
+            margin: 30px 0;
+            color: #e6e0ff; /* สีม่วงอ่อน */
+            /* เอฟเฟกต์เรืองแสงหลายชั้น */
+            text-shadow: 
+                0 0 10px rgba(230, 224, 255, 0.8),
+                0 0 20px rgba(230, 224, 255, 0.5),
+                0 0 30px rgba(157, 120, 255, 0.3);
+            animation: pulse-glow 2s infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            from { text-shadow: 0 0 10px rgba(230, 224, 255, 0.8), 0 0 20px rgba(230, 224, 255, 0.5); }
+            to { text-shadow: 0 0 15px rgba(230, 224, 255, 1), 0 0 30px rgba(157, 120, 255, 0.7), 0 0 40px rgba(157, 120, 255, 0.4); }
+        }
+
+        /* --- ส่วนประกอบอื่นๆ --- */
         .card { background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 8px; width: 100%; max-width: 500px; margin-bottom: 20px; }
-        
         .input-group { display: flex; gap: 10px; margin-bottom: 15px; }
-        input { flex: 1; padding: 10px; border-radius: 4px; border: 1px solid #444; background: #1f2933; color: white; }
-        
-        .btn-primary { background: #ece8e1; color: #0f1923; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; border-radius: 4px; }
-        
+        input { flex: 1; padding: 12px; border-radius: 4px; border: 1px solid #444; background: #1f2933; color: white; }
+        .btn-primary { background: #ece8e1; color: #0f1923; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; border-radius: 4px; transition: 0.2s; }
+        .btn-primary:hover { background: #ffffff; transform: scale(1.05); }
+
         .refresh-button {
-            background-color: #ff4655; color: white; padding: 6px 14px; border: none; border-radius: 4px;
+            background-color: #ff4655; color: white; padding: 8px 18px; border: none; border-radius: 4px;
             font-weight: bold; cursor: pointer; font-size: 13px; transition: 0.3s;
         }
+        .refresh-button:hover { background-color: #ff5864; }
         .refresh-button:disabled { background-color: #444; }
 
         .bingo-grid {
@@ -68,16 +92,13 @@ body {
             background: rgba(255, 255, 255, 0.1); aspect-ratio: 1/1;
             display: flex; align-items: center; justify-content: center;
             text-align: center; padding: 5px; font-size: 11px; border-radius: 4px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1); transition: 0.3s;
         }
-        .marked { background-color: #ff4655 !important; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); }
+        .marked { background-color: #ff4655 !important; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); border-color: #ff4655; }
         #cooldownMsg { font-size: 11px; color: #888; margin-top: 5px; height: 12px; }
+        .footer-text { margin-top: 20px; color: #666; font-size: 12px; }
     </style>
 
     <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
