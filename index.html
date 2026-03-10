@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JJAZ Valorant Bingo</title>
+    <title>MASTER SANTIAGO BINGO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Kanit:wght@300;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -32,71 +32,137 @@
     </div>
 
     <style>
-        /* ตั้งค่าพื้นฐานและฟอนต์ทั้งเว็บ */
+        /* ตั้งค่าพื้นฐาน */
         body { 
             background-color: #0f1923; 
             color: white; 
             font-family: 'Kanit', sans-serif; 
             margin: 0;
+            display: flex;
+            justify-content: center;
         }
 
         .container { 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
-            padding: 20px; 
-            min-height: 100vh; 
+            padding: 40px 20px; 
+            min-height: 100vh;
+            width: 100%;
         }
 
-        /* --- สไตล์หัวข้อ MASTER SANTIAGO (ม่วงอ่อนเรืองแสง) --- */
+        /* --- สไตล์หัวข้อ MASTER SANTIAGO (ม่วงเรืองแสงแบบในรูป) --- */
         h1.header-glow { 
-            font-family: 'Montserrat', sans-serif; 
-            font-size: 4.5rem; 
-            letter-spacing: 6px; 
+            font-family: 'Orbitron', sans-serif; 
+            font-size: clamp(2rem, 8vw, 4rem); /* ปรับขนาดตามหน้าจออัตโนมัติ */
+            letter-spacing: 10px; 
             text-transform: uppercase;
-            margin: 30px 0;
-            color: #e6e0ff; /* สีม่วงอ่อน */
-            /* เอฟเฟกต์เรืองแสงหลายชั้น */
+            margin: 20px 0 40px 0;
+            color: #ffffff;
             text-shadow: 
-                0 0 10px rgba(230, 224, 255, 0.8),
-                0 0 20px rgba(230, 224, 255, 0.5),
-                0 0 30px rgba(157, 120, 255, 0.3);
-            animation: pulse-glow 2s infinite alternate;
+                0 0 5px #fff, 
+                0 0 10px #fff, 
+                0 0 20px #7a5cff, 
+                0 0 30px #7a5cff, 
+                0 0 40px #7a5cff;
+            text-align: center;
         }
 
-        @keyframes pulse-glow {
-            from { text-shadow: 0 0 10px rgba(230, 224, 255, 0.8), 0 0 20px rgba(230, 224, 255, 0.5); }
-            to { text-shadow: 0 0 15px rgba(230, 224, 255, 1), 0 0 30px rgba(157, 120, 255, 0.7), 0 0 40px rgba(157, 120, 255, 0.4); }
+        /* --- แผงควบคุม --- */
+        .card { 
+            background: rgba(255, 255, 255, 0.05); 
+            padding: 25px; 
+            border-radius: 12px; 
+            width: 100%; 
+            max-width: 550px; 
+            margin-bottom: 30px;
+            backdrop-filter: blur(5px); /* เพิ่มความเบลอให้ดูพรีเมียม */
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* --- ส่วนประกอบอื่นๆ --- */
-        .card { background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 8px; width: 100%; max-width: 500px; margin-bottom: 20px; }
         .input-group { display: flex; gap: 10px; margin-bottom: 15px; }
-        input { flex: 1; padding: 12px; border-radius: 4px; border: 1px solid #444; background: #1f2933; color: white; }
-        .btn-primary { background: #ece8e1; color: #0f1923; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; border-radius: 4px; transition: 0.2s; }
-        .btn-primary:hover { background: #ffffff; transform: scale(1.05); }
+        
+        input { 
+            flex: 1; 
+            padding: 12px 15px; 
+            border-radius: 6px; 
+            border: 1px solid #444; 
+            background: #1a2531; 
+            color: white;
+            font-family: 'Kanit', sans-serif;
+        }
 
+        .btn-primary { 
+            background: #ece8e1; 
+            color: #0f1923; 
+            border: none; 
+            padding: 0 25px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            border-radius: 6px; 
+            transition: 0.3s;
+            font-family: 'Kanit', sans-serif;
+        }
+        .btn-primary:hover { background: #ffffff; transform: translateY(-2px); }
+
+        /* --- ปุ่ม Refresh --- */
+        .refresh-area { text-align: center; }
         .refresh-button {
-            background-color: #ff4655; color: white; padding: 8px 18px; border: none; border-radius: 4px;
-            font-weight: bold; cursor: pointer; font-size: 13px; transition: 0.3s;
+            background-color: #ff4655; 
+            color: white; 
+            padding: 8px 20px; 
+            border: none; 
+            border-radius: 4px;
+            font-weight: bold; 
+            cursor: pointer; 
+            font-size: 14px; 
+            transition: 0.3s;
+            font-family: 'Kanit', sans-serif;
         }
-        .refresh-button:hover { background-color: #ff5864; }
-        .refresh-button:disabled { background-color: #444; }
+        .refresh-button:hover { background-color: #ff5864; box-shadow: 0 0 15px rgba(255, 70, 85, 0.4); }
+        .refresh-button:disabled { background-color: #444; cursor: not-allowed; }
 
+        /* --- ตารางบิงโก --- */
         .bingo-grid {
-            display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;
-            max-width: 500px; width: 100%; background: rgba(255, 255, 255, 0.02);
-            padding: 10px; border-radius: 8px; min-height: 300px;
+            display: grid; 
+            grid-template-columns: repeat(5, 1fr); 
+            gap: 10px;
+            max-width: 550px; 
+            width: 100%; 
+            padding: 15px; 
+            border-radius: 12px; 
+            min-height: 350px;
         }
+
         .bingo-cell {
-            background: rgba(255, 255, 255, 0.1); aspect-ratio: 1/1;
-            display: flex; align-items: center; justify-content: center;
-            text-align: center; padding: 5px; font-size: 11px; border-radius: 4px;
-            border: 1px solid rgba(255, 255, 255, 0.1); transition: 0.3s;
+            background: rgba(255, 255, 255, 0.08); 
+            aspect-ratio: 1/1;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            text-align: center; 
+            padding: 8px; 
+            font-size: clamp(10px, 2.5vw, 14px); 
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            transition: 0.3s;
+            line-height: 1.2;
         }
-        .marked { background-color: #ff4655 !important; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); border-color: #ff4655; }
-        #cooldownMsg { font-size: 11px; color: #888; margin-top: 5px; height: 12px; }
-        .footer-text { margin-top: 20px; color: #666; font-size: 12px; }
+
+        /* ช่องที่ถูกมาร์คแต้ม */
+        .marked { 
+            background-color: #ff4655 !important; 
+            color: white;
+            font-weight: bold;
+            border-color: #ff4655;
+            box-shadow: 0 0 15px rgba(255, 70, 85, 0.5);
+        }
+
+        #cooldownMsg { font-size: 12px; color: #888; margin-top: 8px; height: 15px; }
+        .footer-text { margin-top: auto; padding-top: 40px; color: #555; font-size: 12px; letter-spacing: 1px; }
+
+        /* Animation หมุนไอคอน */
+        @keyframes spin { 100% { transform: rotate(360deg); } }
     </style>
 
     <script src="script.js"></script>
