@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>JJAZ Valorant Bingo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    <div id="bingo-modal">
+        <div class="modal-content">
+            <h1 class="victory-text">BINGO VICTORY!</h1>
+            <div class="video-container">
+                <iframe id="jjaz-video" width="100%" height="100%" 
+                    src="https://www.youtube.com/embed/B60Z6Kaa4sE?enablejsapi=1&autoplay=0&mute=0&loop=1&playlist=B60Z6Kaa4sE" 
+                    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+                </iframe>
+            </div>
+            <br>
+            <button class="close-btn" onclick="closeBingoModal()">CLOSE</button>
+        </div>
+    </div>
+
+    <h1 class="title">MASTER SANTIAGO</h1>
+    <div class="author">Watch Party with JJAZ</div>
+
+    <div class="controls">
+        <input id="name" placeholder="Twitch / YouTube username">
+        <button onclick="gen()">Generate Bingo</button>
+    </div>
+
+    <div id="board" class="grid"></div>
+
+    <div class="watermark">
+        <span>Customized by</span>
+        <div>BUTTERCUP</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
