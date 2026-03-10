@@ -9,114 +9,63 @@
 <body>
 
     <div class="container">
-        <div id="setup-section" class="card">
-            <h1>JJAZ BINGO</h1>
-            <p>ใส่ชื่อเพื่อร่วมสนุกกับ Watch Party</p>
-            <input type="text" id="username" placeholder="พิมพ์ชื่อของคุณที่นี่..." autofocus>
-            <button onclick="generateBingo()" class="generate-btn">GENERATE BINGO</button>
-        </div>
+        <h1>JJAZ BINGO</h1>
 
-        <div id="main-content" style="display:none;">
+        <div class="control-panel card">
+            <div class="input-group">
+                <input type="text" id="username" placeholder="ใส่ชื่อของคุณ..." autofocus>
+                <button onclick="generateBingo()" class="btn-primary">Generate</button>
+            </div>
             
             <div class="refresh-area">
-    <button id="updateBtn" onclick="handleUpdate()" class="refresh-button">
-        <span id="btnIcon">🔄</span> <span id="btnText">Refresh</span>
-    </button>
-    <p id="cooldownMsg"></p>
-</div>
-
-<style>
-    .refresh-area { 
-        text-align: center; 
-        margin-bottom: 15px; 
-    }
-    .refresh-button {
-        background-color: #ff4655;
-        color: white;
-        padding: 6px 14px;      /* ขนาดเล็กลงมาก */
-        font-size: 13px;        /* ตัวอักษรพอดีคำ */
-        border: none;
-        border-radius: 4px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: 0.2s;
-        box-shadow: 0 2px 6px rgba(255, 70, 85, 0.3);
-    }
-    .refresh-button:hover { 
-        background-color: #cf3a46; 
-    }
-    .refresh-button:disabled { 
-        background-color: #444; 
-        cursor: not-allowed; 
-    }
-    #cooldownMsg { 
-        color: #888; 
-        font-size: 11px; 
-        margin-top: 4px; 
-        height: 12px; 
-    }
-</style>
-
-            <div id="bingo-board" class="bingo-grid">
-                </div>
-            
-            <p class="footer-text">เมื่อบิงโกแล้ว อย่าลืมพิมพ์บอกในสตรีมด้วยนะ!</p>
+                <button id="updateBtn" onclick="handleUpdate()" class="refresh-button">
+                    <span id="btnIcon">🔄</span> <span id="btnText">Refresh</span>
+                </button>
+                <p id="cooldownMsg"></p>
+            </div>
         </div>
+
+        <div id="bingo-board" class="bingo-grid">
+            <p style="grid-column: span 5; color: #888; margin-top: 50px;">
+                กรุณาใส่ชื่อแล้วกด Generate เพื่อเริ่มเกม
+            </p>
+        </div>
+
+        <p class="footer-text">Watch Party with JJAZ420</p>
     </div>
 
     <style>
-        body { background-color: #0f1923; color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        .container { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
+        body { background-color: #0f1923; color: white; font-family: 'Segoe UI', sans-serif; }
+        .container { display: flex; flex-direction: column; align-items: center; padding: 20px; min-height: 100vh; }
         
-        .card { background: rgba(255, 255, 255, 0.05); padding: 30px; border-radius: 10px; text-align: center; }
+        .card { background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 8px; width: 100%; max-width: 500px; margin-bottom: 20px; }
         
-        /* สไตล์ปุ่มอัปเดต */
-        .update-area { text-align: center; margin-bottom: 20px; }
-        .update-button {
-    background-color: #ff4655;
-    color: white;
-    /* --- ปรับ 3 บรรทัดนี้ให้เล็กลง --- */
-    padding: 8px 16px;      /* ลดขนาดขอบจาก 12px 25px เป็น 8px 16px */
-    font-size: 13px;       /* ลดขนาดตัวอักษรลง */
-    border-radius: 3px;    /* ปรับความโค้งให้เล็กลงตามขนาดปุ่ม */
-    /* ------------------------------ */
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-    box-shadow: 0 2px 8px rgba(255, 70, 85, 0.3); /* ลดเงาลงให้ดูเบาขึ้น */
-}
-        .update-button:hover { background-color: #cf3a46; transform: translateY(-2px); }
-        .update-button:disabled { background-color: #444; cursor: not-allowed; transform: none; }
+        .input-group { display: flex; gap: 10px; margin-bottom: 15px; }
+        input { flex: 1; padding: 10px; border-radius: 4px; border: 1px solid #444; background: #1f2933; color: white; }
         
-        #cooldownMsg { color: #888; font-size: 12px; margin-top: 8px; height: 15px; }
+        .btn-primary { background: #ece8e1; color: #0f1923; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; border-radius: 4px; }
+        
+        .refresh-button {
+            background-color: #ff4655; color: white; padding: 6px 14px; border: none; border-radius: 4px;
+            font-weight: bold; cursor: pointer; font-size: 13px; transition: 0.3s;
+        }
+        .refresh-button:disabled { background-color: #444; }
 
-        /* สไตล์ตารางบิงโก */
         .bingo-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-            max-width: 500px;
-            width: 100%;
-            margin: 0 auto;
+            display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;
+            max-width: 500px; width: 100%; background: rgba(255, 255, 255, 0.02);
+            padding: 10px; border-radius: 8px; min-height: 300px;
         }
         .bingo-cell {
-            background: rgba(255, 255, 255, 0.1);
-            aspect-ratio: 1/1;
+            background: rgba(255, 255, 255, 0.1); aspect-ratio: 1/1;
             display: flex; align-items: center; justify-content: center;
-            text-align: center; padding: 5px; font-size: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 4px;
+            text-align: center; padding: 5px; font-size: 11px; border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .marked { background-color: #ff4655 !important; color: white; font-weight: bold; }
-        
-        .generate-btn {
-            background-color: #ece8e1; color: #0f1923; padding: 15px 30px;
-            border: none; font-weight: bold; cursor: pointer; margin-top: 20px;
-        }
+        .marked { background-color: #ff4655 !important; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); }
+        #cooldownMsg { font-size: 11px; color: #888; margin-top: 5px; height: 12px; }
     </style>
 
     <script src="script.js"></script>
 </body>
 </html>
-
-
