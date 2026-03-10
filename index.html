@@ -1,68 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JJAZ Valorant Bingo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </head>
 <body>
-    <div id="bingo-modal">
-        <div class="modal-content">
-            <h1 class="victory-text">BINGO VICTORY!</h1>
-            <div class="video-container">
-                <iframe id="jjaz-video" width="100%" height="100%" 
-                    src="https://www.youtube.com/embed/B60Z6Kaa4sE?enablejsapi=1&autoplay=0&mute=0&loop=1&playlist=B60Z6Kaa4sE" 
-                    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
-                </iframe>
+
+    <div class="container">
+        <div id="setup-section" class="card">
+            <h1>JJAZ BINGO</h1>
+            <p>ใส่ชื่อเพื่อร่วมสนุกกับ Watch Party</p>
+            <input type="text" id="username" placeholder="พิมพ์ชื่อของคุณที่นี่..." autofocus>
+            <button onclick="generateBingo()" class="generate-btn">GENERATE BINGO</button>
+        </div>
+
+        <div id="main-content" style="display:none;">
+            
+            <div class="update-area">
+                <button id="updateBtn" onclick="handleUpdate()" class="update-button">
+                    <span id="btnIcon">🔄</span> <span id="btnText">อัปเดตแต้ม</span>
+                </button>
+                <p id="cooldownMsg"></p>
             </div>
-            <br>
-            <button class="close-btn" onclick="closeBingoModal()">CLOSE</button>
+
+            <div id="bingo-board" class="bingo-grid">
+                </div>
+            
+            <p class="footer-text">เมื่อบิงโกแล้ว อย่าลืมพิมพ์บอกในสตรีมด้วยนะ!</p>
         </div>
     </div>
 
-    <h1 class="title">MASTER SANTIAGO</h1>
-    <div class="author">Watch Party with JJAZ</div>
+    <style>
+        body { background-color: #0f1923; color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .container { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
+        
+        .card { background: rgba(255, 255, 255, 0.05); padding: 30px; border-radius: 10px; text-align: center; }
+        
+        /* สไตล์ปุ่มอัปเดต */
+        .update-area { text-align: center; margin-bottom: 20px; }
+        .update-button {
+            background-color: #ff4655; /* สีแดง Valorant */
+            color: white; padding: 12px 25px; border: none; border-radius: 4px;
+            font-weight: bold; cursor: pointer; transition: 0.3s;
+            font-size: 16px; box-shadow: 0 4px 15px rgba(255, 70, 85, 0.4);
+        }
+        .update-button:hover { background-color: #cf3a46; transform: translateY(-2px); }
+        .update-button:disabled { background-color: #444; cursor: not-allowed; transform: none; }
+        
+        #cooldownMsg { color: #888; font-size: 12px; margin-top: 8px; height: 15px; }
 
-    <div class="controls">
-        <input id="name" placeholder="Twitch / YouTube username">
-        <button onclick="gen()">Generate Bingo</button>
-    </div>
-
-    <div style="text-align: center; margin-bottom: 20px;">
-    <button id="updateBtn" onclick="handleUpdate()" class="update-button">
-        <span id="btnIcon">🔄</span> <span id="btnText">Update Bingo</span>
-    </button>
-    <p id="cooldownMsg" style="color: #666; font-size: 12px; margin-top: 5px; height: 15px;"></p>
-</div>
-
-<style>
-    .update-button {
-        background-color: #ff4655;
-        color: white;
-        padding: 12px 25px;
-        border: none;
-        border-radius: 4px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: 0.3s;
-        box-shadow: 0 4px 15px rgba(255, 70, 85, 0.3);
-    }
-    .update-button:hover { background-color: #cf3a46; transform: translateY(-2px); }
-    .update-button:disabled { background-color: #444; cursor: not-allowed; }
-</style>
-    
-    <div id="board" class="grid"></div>
-
-    <div class="watermark">
-        <span>Customized by</span>
-        <div>BUTTERCUP</div>
-    </div>
+        /* สไตล์ตารางบิงโก */
+        .bingo-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            max-width: 500px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        .bingo-cell {
+            background: rgba(255, 255, 255, 0.1);
+            aspect-ratio: 1/1;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; padding: 5px; font-size: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 4px;
+        }
+        .marked { background-color: #ff4655 !important; color: white; font-weight: bold; }
+        
+        .generate-btn {
+            background-color: #ece8e1; color: #0f1923; padding: 15px 30px;
+            border: none; font-weight: bold; cursor: pointer; margin-top: 20px;
+        }
+    </style>
 
     <script src="script.js"></script>
 </body>
-
 </html>
-
