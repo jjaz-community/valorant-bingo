@@ -100,31 +100,29 @@
         }
 
         .btn-primary { 
-    /* สีม่วงลาเวนเดอร์ตามรูปที่คุณต้องการ */
-    background-color: #726bff; 
+    background-color: #726bff; /* สีม่วงลาเวนเดอร์ที่ต้องการ */
+    color: #ffffff !important; /* ตัวหนังสือสีขาวบริสุทธิ์ */
     
-    /* ตัวหนังสือสีขาวสะอาด คมชัด */
-    color: #ffffff !important; 
-    
-    /* สั่งปิดเงาทุกชนิดเพื่อให้ตัวหนังสืออ่านง่ายที่สุด */
-    text-shadow: none !important; 
-    
-    padding: 12px 25px; 
-    font-weight: 700; 
-    font-family: 'Kanit', sans-serif;
-    font-size: 16px;
-    border: none;
-    border-radius: 10px; /* ขอบมนสวยๆ แบบในรูป */
+    /* --- ส่วนที่สำคัญที่สุดเพื่อให้หน้าเว็บอ่านง่าย --- */
+    font-family: 'Kanit', sans-serif; /* เปลี่ยนมาใช้ฟอนต์ที่อ่านง่ายกว่า */
+    font-size: 18px; /* ปรับขนาดให้ใหญ่ขึ้นเล็กน้อย */
+    font-weight: 700; /* ใช้ตัวหนาเพื่อให้ตัดกับพื้นหลัง */
+    text-shadow: none !important; /* สั่งปิดความฟุ้งทั้งหมดเพื่อให้ตัวหนังสือคมกริบ */
+    letter-spacing: 0px; /* ลดระยะห่างตัวอักษรให้อยู่ในระดับปกติ */
+    /* ------------------------------------------- */
+
+    padding: 12px 30px; 
+    border: none; 
+    border-radius: 12px; 
     cursor: pointer;
     transition: all 0.2s ease;
-    
-    /* เพิ่มเงาที่ตัวปุ่มแทนตัวหนังสือ เพื่อให้ปุ่มดูนูนออกมา */
-    box-shadow: 0 4px 0px rgba(0, 0, 0, 0.1); 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 }
 
 .btn-primary:hover {
-    background-color: #5c54ff; /* เข้มขึ้นนิดหน่อยตอนเอาเมาส์วาง */
-    transform: translateY(-1px);
+    background-color: #5c54ff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 .btn-primary:active {
     transform: translateY(0); /* เอฟเฟกต์ตอนกดปุ่ม */
@@ -208,6 +206,7 @@
     <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
