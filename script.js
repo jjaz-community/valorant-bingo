@@ -50,7 +50,7 @@ async function handleUpdate() {
     const msg = document.getElementById('cooldownMsg');
 
     btn.disabled = true;
-    btnText.innerText = "กำลังเช็ค...";
+    btnText.innerText = "Refreshing...";
     if(btnIcon) btnIcon.style.animation = "spin 1s linear infinite";
 
     try {
@@ -63,10 +63,10 @@ async function handleUpdate() {
                 const cell = document.getElementById('cell-' + id.trim());
                 if (cell) cell.classList.add('marked');
             });
-            btnText.innerText = "อัปเดตแล้ว!";
+            btnText.innerText = "Updated!";
         }
     } catch (err) {
-        btnText.innerText = "ลองใหม่";
+        btnText.innerText = "Try again";
     }
 
     isCooldown = true;
@@ -77,7 +77,7 @@ async function handleUpdate() {
             clearInterval(timer);
             isCooldown = false;
             btn.disabled = false;
-            btnText.innerText = "อัปเดตแต้ม";
+            btnText.innerText = "Refresh";
             msg.innerText = "";
         } else {
             msg.innerText = `รออีก ${seconds} วินาที`;
@@ -89,3 +89,4 @@ async function handleUpdate() {
 const style = document.createElement('style');
 style.innerHTML = `@keyframes spin { 100% { transform:rotate(360deg); } }`;
 document.head.appendChild(style);
+
