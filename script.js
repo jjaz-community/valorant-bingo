@@ -198,7 +198,7 @@ function showBingoEffects() {
     if (overlay && video) {
         overlay.style.display = 'flex';
        video.muted = false; 
-        video.volume = 0.25; // ตั้งค่าเสียงที่ 25%
+        video.volume = 0.15; // ตั้งค่าเสียงที่ 25%
         // -----------------------
 
         video.play().catch(() => {
@@ -222,4 +222,5 @@ setInterval(() => {
         handleUpdate(); 
     }
 }, 10000);
+
 
