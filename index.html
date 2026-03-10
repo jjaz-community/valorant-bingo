@@ -41,11 +41,19 @@
         /* สไตล์ปุ่มอัปเดต */
         .update-area { text-align: center; margin-bottom: 20px; }
         .update-button {
-            background-color: #ff4655; /* สีแดง Valorant */
-            color: white; padding: 12px 25px; border: none; border-radius: 4px;
-            font-weight: bold; cursor: pointer; transition: 0.3s;
-            font-size: 16px; box-shadow: 0 4px 15px rgba(255, 70, 85, 0.4);
-        }
+    background-color: #ff4655;
+    color: white;
+    /* --- ปรับ 3 บรรทัดนี้ให้เล็กลง --- */
+    padding: 8px 16px;      /* ลดขนาดขอบจาก 12px 25px เป็น 8px 16px */
+    font-size: 13px;       /* ลดขนาดตัวอักษรลง */
+    border-radius: 3px;    /* ปรับความโค้งให้เล็กลงตามขนาดปุ่ม */
+    /* ------------------------------ */
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 2px 8px rgba(255, 70, 85, 0.3); /* ลดเงาลงให้ดูเบาขึ้น */
+}
         .update-button:hover { background-color: #cf3a46; transform: translateY(-2px); }
         .update-button:disabled { background-color: #444; cursor: not-allowed; transform: none; }
         
@@ -78,3 +86,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+
