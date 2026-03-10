@@ -115,3 +115,79 @@ async function handleUpdate() {
 const style = document.createElement('style');
 style.innerHTML = `@keyframes spin { 100% { transform:rotate(360deg); } }`;
 document.head.appendChild(style);
+
+// ฟังก์ชันเช็คการบิงโก
+function checkBingo() {
+    const cells = document.querySelectorAll('.bingo-cell');
+    const size = 5;
+    let grid = [];
+    
+    // แปลงสถานะตารางเป็น Array 2 มิติ
+    for (let i = 0; i < size; i++) {
+        grid[i] = [];
+        for (let j = 0; j < size; j++) {
+            grid[i][j] = cells[i * size + j].classList.contains('marked');
+        }
+    }
+
+    let isBingo = false;
+
+    // เช็คแนวนอนและแนวตั้ง
+    for (let i = 0; i < size; i++) {
+        if (grid[i].every(val => val) || grid.map(row => row[i]).every(val => val)) {
+            isBingo = true;
+        }
+    }
+
+    // เช็คแนวทแยง
+    if (grid.map((row, i) => row[i]).every(val => val) || 
+        grid.map((row, i) => row[size - 1 - i]).every(val => val)) {
+        isBingo = true;
+    }
+
+    if (isBingo) {
+        showBingoEffects();
+    }
+}
+
+// ฟังก์ชันแสดงเอฟเฟกต์อลังการ
+function showBingoEffects() {
+    // 1. จุดพลุ
+    var duration = 5 * 1000;
+    var animationEnd = Date.now() + duration;
+    var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 10000 };
+
+    function randomInRange(min, max) { return Math.random() * (max - min) + min; }
+
+    var interval = setInterval(function() {
+        var timeLeft = animationEnd - Date.now();
+        if (timeLeft <= 0) return clearInterval(interval);
+        var particleCount = 50 * (timeLeft / duration);
+        confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+        confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+    }, 250);
+
+    // 2. แสดงวิดีโอและคำว่า BINGO
+    const overlay = document.getElementById('bingo-overlay');
+    const video = document.getElementById('bingo-video');
+    overlay.style.display = 'flex';
+    video.play();
+}
+
+function closeBingo() {
+    const overlay = document.getElementById('bingo-overlay');
+    const video = document.getElementById('bingo-video');
+    overlay.style.display = 'none';
+    video.pause();
+    video.currentTime = 0;
+}
+
+// แก้ไขฟังก์ชัน onclick เดิมใน renderBoard ของคุณ
+// ให้เพิ่ม checkBingo() เข้าไปต่อท้าย toggle('marked') แบบนี้ครับ:
+/* cell.onclick = function() {
+    if (this.id !== "special-cell") {
+        this.classList.toggle('marked');
+        checkBingo(); // เพิ่มบรรทัดนี้!!!
+    }
+};
+*/
