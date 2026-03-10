@@ -39,22 +39,28 @@ async function generateBingo() {
 async function saveEvent(index) {
     const currentUsername = document.getElementById('username').value;
     
-    // ดึงสถานะปัจจุบันของทุกช่องที่ถูก marked (ยกเว้นช่องกลาง)
+    // 1. ดึงตำแหน่งช่องทั้งหมดที่ถูกติ๊ก (Marked) ยกเว้นช่องกลาง
     const markedCells = Array.from(document.querySelectorAll('.bingo-cell.marked'))
-        .filter(cell => cell.id !== 'special-cell') // ไม่เอาช่องกลาง
-        .map(cell => cell.id.replace('cell-', '')); // เอาเฉพาะตัวเลข ID
+        .filter(cell => cell.id !== 'special-cell') 
+        .map(cell => {
+            // ดึงเฉพาะตัวเลขจาก id เช่น "cell-5" -> "5"
+            return cell.id.replace('cell-', '');
+        });
     
     const currentState = markedCells.join(',');
 
     try {
-        // เปลี่ยนมาใช้ setEvent และใส่ key "1234" ตามใน Apps Script ของคุณ
-        const url = `${SCRIPT_URL}?action=setEvent&user=${currentUsername}&key=1234&event=bingo_update&state=${currentState}`;
+        // 2. สร้าง URL ให้ตรงกับ setEvent(username, secretKey, event, state) ใน Apps Script
+        // ตรง key=1234 ต้องตรงกับ HOST_SECRET_KEY ใน Apps Script นะครับ
+        const url = `${SCRIPT_URL}?action=setEvent&user=${encodeURIComponent(currentUsername)}&key=1234&event=bingo_update&state=${encodeURIComponent(currentState)}`;
         
+        console.log("Sending to Sheets:", url); // ไว้เช็คใน Console ว่า URL หน้าตาเป็นไง
+
         const response = await fetch(url);
-        const result = await response.text();
-        console.log("Sync to Sheets:", result);
+        const result = await response.json(); 
+        console.log("Result from Sheets:", result);
     } catch (err) {
-        console.error("Sync failed:", err);
+        console.error("Sync Error:", err);
     }
 }
 
@@ -233,4 +239,5 @@ function closeBingo() {
         video.currentTime = 0;
     }
 }
+
 
